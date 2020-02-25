@@ -1,10 +1,6 @@
-import pandas as pd
 import numpy as np
 from scipy.stats import f
 from dataclasses import dataclass, asdict
-
-
-#%%
 
 
 @dataclass
