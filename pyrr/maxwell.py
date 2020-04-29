@@ -49,3 +49,20 @@ def maxwell(ratings):
     coeff = 2 * np.sum((r1 - r2) == 0) / ns - 1
 
     return maxwell_result(ns, nr, value=coeff)
+
+
+# data(anxiety)  # TODO: test cases, this one is correct
+# # Median-split to generate binary data
+# r1 <- ifelse(anxiety$rater1<median(anxiety$rater1),0,1)
+# r2 <- ifelse(anxiety$rater2<median(anxiety$rater2),0,1)
+# maxwell(cbind(r1,r2))
+#  Maxwell's RE
+#
+#  Subjects = 20
+#    Raters = 2
+#        RE = 0.6
+
+# anxiety = pd.read_csv("./tests/anxiety.csv", index_col=0)
+# anxiety[anxiety < anxiety.median()] = 0
+# anxiety[anxiety >= anxiety.median()] = 1
+# maxwell(anxiety.iloc[:, :2])  # correct

@@ -1,6 +1,8 @@
 from dataclasses import dataclass, asdict
 
 import numpy as np
+import pandas as pd
+from scipy.stats import norm
 
 
 @dataclass
@@ -20,7 +22,7 @@ class kappa2_result:
         return model_string
 
 
-def kappa2(ratings, weight, numeric=True, sort_levels=False):
+def kappa2(ratings, weight, sort_levels=False):
     """Cohen’s Kappa and weighted Kappa for two raters
 
     Parameters
@@ -29,13 +31,10 @@ def kappa2(ratings, weight, numeric=True, sort_levels=False):
         subjects * raters array or dataframe
     weight: {"unweighted", "equal", "squared"}
         either a character string specifying one predefined set of weights or a numeric vector with own weights.
-    numeric: bool
-        whether or not data should be interpreted as numeric or as a factor
     sort_levels: bool
-        boolean value describing whether factor levels should be (re-)sorted during the calculation
 
     """
-    ratings = np.array(ratings)  # make sure ratings is not a list or DataFrame
+    ratings = np.asarray(ratings)  # make sure ratings is not a list or DataFrame
 
     ratings = ratings[~np.isnan(ratings).any(axis=1)]  # drop nans
 
@@ -47,32 +46,81 @@ def kappa2(ratings, weight, numeric=True, sort_levels=False):
 
     r1, r2 = ratings[:, 0], ratings[:, 1]
 
-    sort_levels = True if numeric else sort_levels
+    levels = np.unique(ratings)
 
-    lev = set(ratings.ravel())
+    if sort_levels:
+        levels = np.sort(levels)
 
-    nc = len(set(r2))
+    r1 = pd.Categorical(r1, categories=levels)
+    r2 = pd.Categorical(r2, categories=levels)
+
+    ttab = pd.crosstab(r1, r2, dropna=False)
+    nc = ttab.shape[1]
+
 
     if not isinstance(weight, str):
-        w = 1 - (weight - min(weight)) / (max(weight) - min(weight))
+        w = 1 - (np.asarray(weight) - min(weight)) / (max(weight) - min(weight))
     elif weight == "equal":
-        w = np.arange((nc - 1), -1, -1) / (nc-1)
+        w = np.arange((nc-1), -1, -1) / (nc-1)
     elif weight == "squared":
-        w = 1 - np.arange(0, nc, 1)**2 / (nc - 1)**2
+        w = 1 - np.arange(0, nc, 1)**2 / (nc-1)**2
     elif weight == "unweighted":
         w = np.zeros(nc)
         w[0] = 1
-    # TODO: continue
+
+    nw = len(w)
+    wvec = np.append(np.sort(w), w[1:])
+    weight_tab = np.zeros((nw, nw))
+
+    for i in range(nw):
+        weight_tab[i, :] = wvec[(nw - i - 1):(2 * nw - i - 1)]
+
+    agreeP = np.sum(ttab * weight_tab) / ns
+
+    tm1 = np.sum(ttab, 1)
+    tm2 = np.sum(ttab, 0)
+
+    eij = np.outer(tm1, tm2) / ns
+    chance_P = np.sum(eij * weight_tab) / ns
+
+    # Kappa for 2 raters
+    value = (agreeP - chance_P) / (1 - chance_P)
+
+    # Compute statistics
+    wi = np.sum(np.tile(tm2 / ns, nc) * weight_tab, 0)  # TODO: no idea what is going on here
+    wj = np.sum(np.repeat(tm1 / ns, nc) * weight_tab, 1)
+
+    var_matrix = (eij / ns) * (weight_tab - np.outer(wi, wj)) ** 2
+
+    var_kappa = (np.sum(var_matrix) - chance_P ** 2) / (ns * (1 - chance_P) ** 2)
+
+    SE_kappa = np.sqrt(var_kappa)
+    u = value / SE_kappa
+
+    p_value = 2 * (1 - norm.cdf(abs(u)))
+
+    return kappa2_result(ns, nr, p_value, weight)
 
 
+kappa2(pd.read_csv("../tests/anxiety.csv").iloc[:, :2], weight="equal")
 
+# kappa2(anxiety[, 1:2], "squared")  # TODO: test cases
+# Cohen
+# 's Kappa for 2 Raters (Weights: squared)
+#
+# Subjects = 20
+# Raters = 2
+# Kappa = 0.297
+#
+# z = 1.34
+# p - value = 0.18
 
-
-    SS_total = np.cov(np.ravel(ratings)) * (ns * nr - 1)
-    SSb = np.cov(ratings.mean(axis=1)) * nr * (ns - 1)
-    SSw = np.cov(ratings.mean(axis=0)) * ns * (nr - 1)
-    SSr = SS_total - SSb - SSw
-
-    coeff = SSb / (SSb + SSr)
-
-    return kappa2_result(ns, nr, coeff, weight)
+# kappa2(diagnoses[,2:3])
+#  Cohen's Kappa for 2 Raters (Weights: unweighted)
+#
+#  Subjects = 30
+#    Raters = 2
+#     Kappa = 0.631
+#
+#         z = 7.56
+#   p-value = 4.04e-14

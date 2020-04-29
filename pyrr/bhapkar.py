@@ -81,3 +81,14 @@ def bhapkar(ratings):
     p_value = 1 - chi2.cdf(x_value, df1)
 
     return bhapkar_result(subjects=ns, raters=nr, value=x_value, pvalue=p_value)
+
+# bhapkar(vision)  # TODO: add tests, this one is correct
+#  Bhapkar marginal homogeneity
+#
+#  Subjects = 7477
+#    Raters = 2
+#     Chisq = 12
+#
+#  Chisq(3) = 12
+#   p-value = 0.00747
+

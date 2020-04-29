@@ -27,7 +27,7 @@ def robinson(ratings):
         subjects * raters array or dataframe
 
     """
-    ratings = np.array(ratings)  # make sure ratings is not a list or DataFrame
+    ratings = np.asarray(ratings)  # make sure ratings is not a list or DataFrame
 
     ratings = ratings[~np.isnan(ratings).any(axis=1)]  # drop nans
 
@@ -42,3 +42,10 @@ def robinson(ratings):
     coeff = SSb / (SSb + SSr)
 
     return robinson_result(ns, nr, coeff)
+
+# robinson(anxiety)  # TODO: test cases, this one is correct
+#  Robinson's A
+#
+#  Subjects = 20
+#    Raters = 3
+#         A = 0.477

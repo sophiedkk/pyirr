@@ -50,3 +50,18 @@ def agree(ratings, tolerance=0, numeric=True):
         tolerance = 0
 
     return agree_result(ns, nr, value=coeff, tolerance=tolerance)
+
+
+# agree(video)  # TODO: test cases, this one is correct
+#  Percentage agreement (Tolerance=0)
+#
+#  Subjects = 20
+#    Raters = 4
+#   %-agree = 35
+
+# agree(video,1)
+#  Percentage agreement (Tolerance=1)
+#
+#  Subjects = 20
+#    Raters = 4
+#   %-agree = 90
