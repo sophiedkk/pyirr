@@ -2,6 +2,7 @@ from dataclasses import dataclass, asdict
 
 import numpy as np
 import pandas as pd
+from pandas.api.types import is_numeric_dtype
 from scipy.stats import norm
 
 
@@ -10,6 +11,8 @@ class kappa2_result:
     subjects: int
     raters: int
     value: float
+    statistic: float
+    pvalue: float
     weight: str
 
     def to_dict(self):
@@ -18,7 +21,8 @@ class kappa2_result:
     def __repr__(self):
         model_string = "=" * 50 + "\n" + f"Cohen's Kappa for 2 Raters (Weights: {self.weight})".center(50, " ")
         model_string += "\n" + "=" * 50 + "\n"
-        model_string += f"Subjects = {self.subjects}\nRaters = {self.raters}\nA = {self.value:.3f}\n" + "=" * 50
+        model_string += f"Subjects = {self.subjects}\nRaters = {self.raters}\nKappa = {self.value:.3f}\n\n"
+        model_string += f"z = {self.statistic:.2f}\np = {self.pvalue:.3f}\n" + "=" * 50
         return model_string
 
 
@@ -34,9 +38,9 @@ def kappa2(ratings, weight, sort_levels=False):
     sort_levels: bool
 
     """
-    ratings = np.asarray(ratings)  # make sure ratings is not a list or DataFrame
+    ratings = pd.DataFrame(ratings)  # make sure ratings is a DataFrame
 
-    ratings = ratings[~np.isnan(ratings).any(axis=1)]  # drop nans
+    ratings.dropna(inplace=True)
 
     ns = ratings.shape[0]
     nr = ratings.shape[1]
@@ -44,7 +48,10 @@ def kappa2(ratings, weight, sort_levels=False):
     if nr > 2:
         raise Exception("Number of raters exceeds 2. Try kappam_fleiss or kappam_light")
 
-    r1, r2 = ratings[:, 0], ratings[:, 1]
+    r1, r2 = ratings.iloc[:, 0], ratings.iloc[:, 1]
+
+    if is_numeric_dtype(r1) or is_numeric_dtype(r2):
+        sort_levels = True
 
     levels = np.unique(ratings)
 
@@ -54,9 +61,8 @@ def kappa2(ratings, weight, sort_levels=False):
     r1 = pd.Categorical(r1, categories=levels)
     r2 = pd.Categorical(r2, categories=levels)
 
-    ttab = pd.crosstab(r1, r2, dropna=False)
+    ttab = pd.crosstab(r1, r2, dropna=False).values
     nc = ttab.shape[1]
-
 
     if not isinstance(weight, str):
         w = 1 - (np.asarray(weight) - min(weight)) / (max(weight) - min(weight))
@@ -87,10 +93,10 @@ def kappa2(ratings, weight, sort_levels=False):
     value = (agreeP - chance_P) / (1 - chance_P)
 
     # Compute statistics
-    wi = np.sum(np.tile(tm2 / ns, nc) * weight_tab, 0)  # TODO: no idea what is going on here
-    wj = np.sum(np.repeat(tm1 / ns, nc) * weight_tab, 1)
+    wi = np.sum(np.broadcast_to(tm2/ns, (nc, nc)).T * weight_tab, 0)
+    wj = np.sum(np.repeat(tm1/ns, nc).reshape((nc, nc)).T * weight_tab, 1)
 
-    var_matrix = (eij / ns) * (weight_tab - np.outer(wi, wj)) ** 2
+    var_matrix = (eij / ns) * (weight_tab - np.sum(np.meshgrid(wi, wj), axis=0).T) ** 2
 
     var_kappa = (np.sum(var_matrix) - chance_P ** 2) / (ns * (1 - chance_P) ** 2)
 
@@ -99,12 +105,16 @@ def kappa2(ratings, weight, sort_levels=False):
 
     p_value = 2 * (1 - norm.cdf(abs(u)))
 
-    return kappa2_result(ns, nr, p_value, weight)
+    return kappa2_result(ns, nr, value, u, p_value, weight)
 
 
-kappa2(pd.read_csv("../tests/anxiety.csv").iloc[:, :2], weight="equal")
+# ratings = pd.read_csv("pyrr/tests/anxiety.csv").iloc[:, 1:3]
+# print(kappa2(ratings, weight="squared"))
+#
+# ratings = pd.read_csv("pyrr/tests/diagnoses.csv").iloc[:, 2:4]
+# print(kappa2(ratings, weight="unweighted"))
 
-# kappa2(anxiety[, 1:2], "squared")  # TODO: test cases
+# kappa2(anxiety[, 1:2], "squared")  # TODO: test cases, this one works
 # Cohen
 # 's Kappa for 2 Raters (Weights: squared)
 #
@@ -115,7 +125,7 @@ kappa2(pd.read_csv("../tests/anxiety.csv").iloc[:, :2], weight="equal")
 # z = 1.34
 # p - value = 0.18
 
-# kappa2(diagnoses[,2:3])
+# kappa2(diagnoses[,2:3])  # TODO: test cases, this one works
 #  Cohen's Kappa for 2 Raters (Weights: unweighted)
 #
 #  Subjects = 30

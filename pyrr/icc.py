@@ -63,7 +63,7 @@ def intraclass_correlation(ratings, model="oneway", mtype="consistency", unit="s
     nr = ratings.shape[1]
 
     SS_total = np.cov(np.ravel(ratings)) * (ns * nr - 1)
-    MSr = np.apply_along_axis(np.cov, 0, np.mean(ratings, axis=1)) * nr
+    MSr = np.cov(np.mean(ratings, axis=1)) * nr
     MSw = np.sum(np.apply_along_axis(np.cov, axis=1, arr=ratings) / ns)
     MSc = np.apply_along_axis(np.cov, axis=0, arr=np.mean(ratings, axis=0)) * ns
     MSe = (SS_total - MSr * (ns - 1) - MSc * (nr - 1)) / ((ns - 1) * (nr - 1))
