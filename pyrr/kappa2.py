@@ -1,29 +1,9 @@
-from dataclasses import dataclass, asdict
-
 import numpy as np
 import pandas as pd
 from pandas.api.types import is_numeric_dtype
 from scipy.stats import norm
 
-
-@dataclass
-class kappa2_result:
-    subjects: int
-    raters: int
-    value: float
-    statistic: float
-    pvalue: float
-    weight: str
-
-    def to_dict(self):
-        return asdict(self)
-
-    def __repr__(self):
-        model_string = "=" * 50 + "\n" + f"Cohen's Kappa for 2 Raters (Weights: {self.weight})".center(50, " ")
-        model_string += "\n" + "=" * 50 + "\n"
-        model_string += f"Subjects = {self.subjects}\nRaters = {self.raters}\nKappa = {self.value:.3f}\n\n"
-        model_string += f"z = {self.statistic:.2f}\np = {self.pvalue:.3f}\n" + "=" * 50
-        return model_string
+from .IRR import IRR_result
 
 
 def kappa2(ratings, weight, sort_levels=False):
@@ -87,10 +67,10 @@ def kappa2(ratings, weight, sort_levels=False):
     tm2 = np.sum(ttab, 0)
 
     eij = np.outer(tm1, tm2) / ns
-    chance_P = np.sum(eij * weight_tab) / ns
+    chanceP = np.sum(eij * weight_tab) / ns
 
     # Kappa for 2 raters
-    value = (agreeP - chance_P) / (1 - chance_P)
+    value = (agreeP - chanceP) / (1 - chanceP)
 
     # Compute statistics
     wi = np.sum(np.broadcast_to(tm2/ns, (nc, nc)).T * weight_tab, 0)
@@ -98,14 +78,16 @@ def kappa2(ratings, weight, sort_levels=False):
 
     var_matrix = (eij / ns) * (weight_tab - np.sum(np.meshgrid(wi, wj), axis=0).T) ** 2
 
-    var_kappa = (np.sum(var_matrix) - chance_P ** 2) / (ns * (1 - chance_P) ** 2)
+    var_kappa = (np.sum(var_matrix) - chanceP ** 2) / (ns * (1 - chanceP) ** 2)
 
     SE_kappa = np.sqrt(var_kappa)
     u = value / SE_kappa
 
-    p_value = 2 * (1 - norm.cdf(abs(u)))
+    pvalue = 2 * (1 - norm.cdf(abs(u)))
 
-    return kappa2_result(ns, nr, value, u, p_value, weight)
+    # return kappa2_result(ns, nr, value, u, p_value, weight)
+    method = f"Cohen's Kappa for 2 Raters (Weights: {weight})"
+    return IRR_result(method, ns, nr, "Kappa", value, u, "z", pvalue)
 
 
 # ratings = pd.read_csv("pyrr/tests/anxiety.csv").iloc[:, 1:3]
