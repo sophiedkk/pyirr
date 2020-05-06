@@ -9,14 +9,14 @@ def kappam_fleiss(ratings, exact=False, detail=False):
     """Computes Fleiss' Kappa as an index of interrater agreement between m raters on categorical data. Additionally,
     category-wise Kappas could be computed.
 
-   Parameters
-   ----------
-   ratings: array_like
-       subjects * raters array or dataframe
-   exact: bool
-       a boolean indicating whether the exact Kappa (Conger, 1980) or the Kappa described by Fleiss (1971) should be
-       computed.
-   detail: bool
+    Parameters
+    ----------
+    ratings: array_like
+        subjects * raters array or dataframe
+    exact: bool
+        a boolean indicating whether the exact Kappa (Conger, 1980) or the Kappa described by Fleiss (1971) should be
+        computed.
+    detail: bool
         a boolean indicating whether category-wise Kappas should be computed
 
    """

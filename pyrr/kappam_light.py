@@ -10,10 +10,10 @@ from .IRR import IRR_result
 def kappam_light(ratings):
     """Computes Light's Kappa as an index of interrater agreement between m raters on categorical data.
 
-   Parameters
-   ----------
-   ratings: array_like
-       subjects * raters array or dataframe
+    Parameters
+    ----------
+    ratings: array_like
+        subjects * raters array or dataframe
 
    """
     ratings = pd.DataFrame(ratings)

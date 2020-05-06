@@ -4,4 +4,6 @@ from .finn import finn
 from .icc import intraclass_correlation
 from .kappa2 import kappa2
 from .kappam_fleiss import kappam_fleiss
+from .kappam_light import kappam_light
+from .kendall import kendall
 from .maxwell import maxwell

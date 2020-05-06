@@ -13,7 +13,7 @@ class IRR_result:
     stat_name: str = None
     pvalue: float = None
     detail: Any = None
-    error: float = None
+    error: str = None
 
     def to_dict(self):
         return asdict(self)
