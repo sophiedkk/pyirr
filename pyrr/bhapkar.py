@@ -4,6 +4,8 @@ import numpy as np
 import pandas as pd
 from scipy.stats import chi2
 
+from .IRR import IRR_result
+
 
 @dataclass
 class bhapkar_result:
@@ -78,9 +80,11 @@ def bhapkar(ratings):
     # test statistics
     x_value = np.sum(chimat)
     df1 = len(ttab) - 1
-    p_value = 1 - chi2.cdf(x_value, df1)
+    pvalue = 1 - chi2.cdf(x_value, df1)
 
-    return bhapkar_result(subjects=ns, raters=nr, value=x_value, pvalue=p_value)
+    method = "Bhapkar marginal homogeneity"
+    stat_name = f"Chisq({df1})"
+    return IRR_result(method, ns, nr, "Chisq", x_value, x_value, stat_name, pvalue)
 
 # bhapkar(vision)  # TODO: add tests, this one is correct
 #  Bhapkar marginal homogeneity
