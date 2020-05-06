@@ -7,3 +7,6 @@ from .kappam_fleiss import kappam_fleiss
 from .kappam_light import kappam_light
 from .kendall import kendall
 from .maxwell import maxwell
+from .meancor import meancor
+from .meanrho import meanrho
+from .N_cohen_kappa import N_cohen_kappa

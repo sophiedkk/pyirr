@@ -15,6 +15,7 @@ def kendall(ratings, correct=False):
         subjects * raters array or dataframe
     correct: bool
         a logical indicating whether the coefficient should be corrected for ties within raters.
+
    """
     ratings = pd.DataFrame(ratings)
     ns = ratings.shape[0]
