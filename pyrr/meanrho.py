@@ -1,7 +1,7 @@
 import numpy as np
 from scipy.stats import norm, spearmanr
 
-from IRR import IRR_result
+from .IRR import IRR_result
 
 
 def meanrho(ratings, fisher=True):

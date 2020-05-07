@@ -51,5 +51,8 @@ Thumbs.db
 
 # Directories #
 ############
-/.pytest_cache
-/.idea
+.pytest_cache
+.idea
+build
+dist
+pyrr.egg-info

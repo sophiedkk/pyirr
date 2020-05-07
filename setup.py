@@ -17,5 +17,5 @@ setup(
 	license 				= 'GNU GPLv3',
 	keywords         		= ['statistics'],
 	classifiers      		= [],
-	install_requires 		= ["numpy", "scipy", "pandas", "pulp"]
+	install_requires 		= ["numpy", "scipy", "pandas"]
 )
