@@ -1,29 +1,7 @@
-from dataclasses import dataclass, asdict
-
 import numpy as np
-from scipy.stats import f
+import pandas as pd
 
-
-@dataclass
-class iota_result:
-    subjects: int
-    raters: int
-    df2: int
-    model: str
-    value: float
-    statistic: float
-    p_value: float
-
-    def to_dict(self):
-        return asdict(self)
-
-    def __repr__(self):
-        model_string = "=" * 50 + "\n" + f"Finn-Coefficient (Model={self.model})".center(50, " ")
-        model_string += "\n" + "=" * 50 + "\n"
-        model_string += f"Subjects = {self.subjects}\nRaters = {self.raters}\nFinn = {self.value:.3f}\n\n"
-        model_string += f"F(Inf, {self.df2}): {self.statistic:.1f}\np_value: {self.p_value:.3f}\n"
-        model_string += "=" * 50
-        return model_string
+from .IRR_result import IRR_result
 
 
 def iota(ratings, scale_data, standardize=False):
@@ -34,17 +12,16 @@ def iota(ratings, scale_data, standardize=False):
     ratings: list
         list with subjects * raters array or dataframe
     scale_data: {"quantitative", "nominal"}
-        a character string specifying if the data is '"quantitative"' (default) or '"nominal"'. If the data is organized
-        in factors, '"nominal"' is chosen automatically.
+        a character string specifying if the data is '"quantitative"' (default) or '"nominal"'.
     standardize: bool
        a logical indicating whether quantitative data should be z-standardized within each variable before the
        computation of iota.
 
     """
-
+    detail = None
     for i, rating in enumerate(ratings):
-        rating = np.asarray(rating)
-        ratings[i] = rating[~np.isnan(rating).any(axis=1)]  # drop nans
+        rating = pd.DataFrame(rating)
+        ratings[i] = rating.dropna()
 
     ns = ratings[0].shape[0]
     nr = ratings[0].shape[1]
@@ -54,22 +31,42 @@ def iota(ratings, scale_data, standardize=False):
     if scale_data == "quantitative":
         if standardize:
             for i, rating in enumerate(ratings):
-                ratings[i] = (rating - rating.mean()) / rating.std()
+                x = np.ravel(rating)
+                ratings[i] = (rating - x.mean()) / x.std()
             detail = "Variables have been z-standardized before the computation"
-        ratinglist = ratings  # Take original as new rating-structure
+        ratinglist = [np.array(rating) for rating in ratings]  # Take original as new rating-structure
     elif scale_data == "nominal":
-        dummyn = 1  # Number of dimensions in dummy list
         ratinglist = []
-
-        levels = set()
+        dummyn = 0
         for i, rating in enumerate(ratings):
             # How many levels were used?
-            levels |= set(rating)
+            levels = np.unique(rating.values)
 
-        # Build new rating-structure
+            for level in levels:
+                # Build new rating-structure
+                ratinglist.append(np.zeros((ns, nr)))
+                ratinglist[dummyn][ratings[i] == level] = 1 / np.sqrt(2)
+                dummyn += 1
+    else:
+        raise Exception("Please choose quantitative or nominal.")
+
+    # Compute coefficient
+    doSS, deSS = 0, 0
+
+    for rating in ratinglist:
+        SSt = np.cov(rating.ravel()) * (ns * nr - 1)
+        SSw = np.sum(np.apply_along_axis(np.cov, 1, rating) / ns) * ns * (nr - 1)
+        SSc = np.cov(np.mean(rating, 0)) * ns * (nr - 1)
+
+        doSS = doSS + SSw
+        deSS = deSS + ((nr - 1) * SSt + SSc)
+
+    coeff = 1 - (nr * doSS) / deSS
+
+    return IRR_result(f"iota for {scale_data} ({nvar} variable(s))", ns, nr, "iota", coeff, detail=detail)
 
 
-# > iota(list(diagnoses))
+# > iota(list(diagnoses))  #TODO: write tests, this one works
  # iota for nominal data (1 variable)
  #
  # Subjects = 30
@@ -98,4 +95,11 @@ def iota(ratings, scale_data, standardize=False):
 #      iota = 0.745
 #
 # Variables have been z-standardized before the computation
-
+# diagnoses = pd.read_csv("pyrr/tests/diagnoses.csv", index_col=0)
+# iota([diagnoses], "nominal")
+#
+#
+# photo = []
+# photo.append(np.array([[71, 74, 76], [73, 80, 80], [86, 101, 93], [59, 62, 66], [71, 83, 77]]))
+# photo.append(np.array([[166, 171, 171], [160, 170, 165], [187, 174, 185], [161, 163, 162], [172, 182, 181]]))
+# iota(photo, "quantitative", True)
