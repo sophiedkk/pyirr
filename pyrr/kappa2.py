@@ -3,7 +3,7 @@ import pandas as pd
 from pandas.api.types import is_numeric_dtype
 from scipy.stats import norm
 
-from .IRR import IRR_result
+from .IRR_result import IRR_result
 
 
 def kappa2(ratings, weight, sort_levels=False):

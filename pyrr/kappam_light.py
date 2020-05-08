@@ -4,7 +4,7 @@ from scipy.special import comb
 from scipy.stats import norm
 
 from .kappa2 import kappa2
-from .IRR import IRR_result
+from .IRR_result import IRR_result
 
 
 def kappam_light(ratings):

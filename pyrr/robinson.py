@@ -1,21 +1,6 @@
-from dataclasses import dataclass, asdict
-
 import numpy as np
 
-
-@dataclass
-class robinson_result:
-    subjects: int
-    raters: int
-    value: float
-
-    def to_dict(self):
-        return asdict(self)
-
-    def __repr__(self):
-        model_string = "=" * 50 + "\n" + "Robinson's A".center(50, " ") + "\n" + "=" * 50 + "\n"
-        model_string += f"Subjects = {self.subjects}\nRaters = {self.raters}\nA = {self.value:.3f}\n" + "=" * 50
-        return model_string
+from .IRR_result import IRR_result
 
 
 def robinson(ratings):
@@ -41,7 +26,8 @@ def robinson(ratings):
 
     coeff = SSb / (SSb + SSr)
 
-    return robinson_result(ns, nr, coeff)
+    return IRR_result("Robinson's A", ns, nr, "A", coeff)
+
 
 # robinson(anxiety)  # TODO: test cases, this one is correct
 #  Robinson's A

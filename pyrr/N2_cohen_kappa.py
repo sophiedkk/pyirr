@@ -54,7 +54,7 @@ def max_tau(Marg, Kp):
 
 def maximize_from_iterables(objectives, constraints, directions, rh_constraints):
     try:
-        from pulp import lpDot, lpSum, LpProblem, LpMaximize, LpVariable
+        from pulp import lpDot, lpSum, LpProblem, LpMaximize, LpVariable, value
     except ModuleNotFoundError:
         raise Exception("This function requires the pulp library, please install that library first.")
 
@@ -72,8 +72,8 @@ def maximize_from_iterables(objectives, constraints, directions, rh_constraints)
 
     result = 0
     values = []
-    for v, m in zip(prob.variables(), objectives):
-        result += v.varValue * m
+    for v, m in zip(variable_list, objectives):
+        result += value(v) * m
         values.append(v.varValue)
     return result, values
 

@@ -1,4 +1,4 @@
-from pyrr import icc
+from pyrr import intraclass_correlation
 
 
 def test_ICC_single_oneway():

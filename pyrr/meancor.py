@@ -1,7 +1,7 @@
 import numpy as np
 from scipy.stats import norm, pearsonr
 
-from .IRR import IRR_result
+from .IRR_result import IRR_result
 
 
 def meancor(ratings, fisher=True):

@@ -1,7 +1,7 @@
 from .agree import agree
 from .bhapkar import bhapkar
 from .finn import finn
-from .icc import intraclass_correlation
+from .intraclass_correlation import intraclass_correlation
 from .kappa2 import kappa2
 from .kappam_fleiss import kappam_fleiss
 from .kappam_light import kappam_light
@@ -10,3 +10,5 @@ from .maxwell import maxwell
 from .meancor import meancor
 from .meanrho import meanrho
 from .N_cohen_kappa import N_cohen_kappa
+from .N2_cohen_kappa import N2_cohen_kappa
+from .rater_bias import rater_bias

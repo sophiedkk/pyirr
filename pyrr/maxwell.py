@@ -1,6 +1,6 @@
 import numpy as np
 
-from .IRR import IRR_result
+from .IRR_result import IRR_result
 
 
 def maxwell(ratings):

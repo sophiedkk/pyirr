@@ -2,7 +2,7 @@ import numpy as np
 import pandas as pd
 from scipy.stats import chi2
 
-from .IRR import IRR_result
+from .IRR_result import IRR_result
 
 
 def kendall(ratings, correct=False):
