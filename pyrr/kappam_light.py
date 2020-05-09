@@ -60,14 +60,3 @@ def kappam_light(ratings):
 
     method = "Light's Kappa for m Raters"
     return IRR_result(method, ns, nr, "Kappa", value, u, "z", pvalue)
-
-
-# > kappam.light(diagnoses)  #TODO: implement tests, this one works
-#  Light's Kappa for m Raters
-#
-#  Subjects = 30
-#    Raters = 6
-#     Kappa = 0.459
-#
-#         z = 2.31
-#   p-value = 0.0211

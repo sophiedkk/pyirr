@@ -48,7 +48,6 @@ def meancor(ratings, fisher=True):
     else:
         coeff = np.mean(r)
 
-
     result = {"method": "Mean of bivariate correlations R", "subjects": ns, "raters": nr, "irr_name": "R",
               "value": coeff}
     if fisher:
@@ -58,18 +57,3 @@ def meancor(ratings, fisher=True):
         result = {**result, "error": error + "dropped before averaging"}
 
     return IRR_result(**result)
-
-
-# > meancor(anxiety)  # TODO: write tests, this one works
-#  Mean of bivariate correlations R
-#
-#  Subjects = 20
-#    Raters = 3
-#         R = 0.224
-#
-#         z = 0.922
-#   p-value = 0.357
-
-# import pandas as pd
-# anxiety = pd.read_csv("pyrr/tests/anxiety.csv", index_col=0)
-# meancor(anxiety)

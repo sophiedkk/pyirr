@@ -27,11 +27,3 @@ def robinson(ratings):
     coeff = SSb / (SSb + SSr)
 
     return IRR_result("Robinson's A", ns, nr, "A", coeff)
-
-
-# robinson(anxiety)  # TODO: test cases, this one is correct
-#  Robinson's A
-#
-#  Subjects = 20
-#    Raters = 3
-#         A = 0.477

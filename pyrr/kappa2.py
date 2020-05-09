@@ -88,31 +88,3 @@ def kappa2(ratings, weight, sort_levels=False):
     # return kappa2_result(ns, nr, value, u, p_value, weight)
     method = f"Cohen's Kappa for 2 Raters (Weights: {weight})"
     return IRR_result(method, ns, nr, "Kappa", value, u, "z", pvalue)
-
-
-# ratings = pd.read_csv("pyrr/tests/anxiety.csv").iloc[:, 1:3]
-# print(kappa2(ratings, weight="squared"))
-#
-# ratings = pd.read_csv("pyrr/tests/diagnoses.csv").iloc[:, 2:4]
-# print(kappa2(ratings, weight="unweighted"))
-
-# kappa2(anxiety[, 1:2], "squared")  # TODO: test cases, this one works
-# Cohen
-# 's Kappa for 2 Raters (Weights: squared)
-#
-# Subjects = 20
-# Raters = 2
-# Kappa = 0.297
-#
-# z = 1.34
-# p - value = 0.18
-
-# kappa2(diagnoses[,2:3])  # TODO: test cases, this one works
-#  Cohen's Kappa for 2 Raters (Weights: unweighted)
-#
-#  Subjects = 30
-#    Raters = 2
-#     Kappa = 0.631
-#
-#         z = 7.56
-#   p-value = 4.04e-14

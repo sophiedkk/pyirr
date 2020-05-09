@@ -79,38 +79,3 @@ def kappam_fleiss(ratings, exact=False, detail=False):
         rval = {**rval, "stat_name": "z", "statistic": u, "pvalue": pvalue}
 
     return IRR_result(**rval)
-
-
-# > kappam.fleiss(diagnoses)  #TODO: write test cases, these all work
-#  Fleiss' Kappa for m Raters
-#
-#  Subjects = 30
-#    Raters = 6
-#     Kappa = 0.43
-#
-#         z = 17.7
-#   p-value = 0
-
-# > kappam.fleiss(diagnoses, exact=TRUE)
-#  Fleiss' Kappa for m Raters (exact value)
-#
-#  Subjects = 30
-#    Raters = 6
-#     Kappa = 0.442
-
-# > kappam.fleiss(diagnoses, detail=TRUE)
-#  Fleiss' Kappa for m Raters
-#
-#  Subjects = 30
-#    Raters = 6
-#     Kappa = 0.43
-#
-#         z = 17.7
-#   p-value = 0
-#
-#                          Kappa      z p.value
-# 1. Depression            0.245  5.192   0.000
-# 2. Personality Disorder  0.245  5.192   0.000
-# 3. Schizophrenia         0.520 11.031   0.000
-# 4. Neurosis              0.471  9.994   0.000
-# 5. Other                 0.566 12.009   0.000

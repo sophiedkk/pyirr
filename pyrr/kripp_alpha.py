@@ -84,33 +84,3 @@ def kripp_alpha(ratings, method=None):
         value = 1 - (nmv - 1) * np.sum(utcm * diff2) / np.sum(ncnk * diff2)
 
     return IRR_result(f"Krippendorff's alpha ({method})", ratings.shape[1], ratings.shape[0], "alpha", value)
-
-
-# > kripp.alpha(nmm)  # TODO: write tests, this one works
-#  Krippendorff's alpha
-#
-#  Subjects = 12
-#    Raters = 4
-#     alpha = 0.743
-# > kripp.alpha(nmm, "ordinal")
-#  Krippendorff's alpha
-#
-#  Subjects = 12
-#    Raters = 4
-#     alpha = 0.815
-# > kripp.alpha(nmm, "interval")
-#  Krippendorff's alpha
-#
-#  Subjects = 12
-#    Raters = 4
-#     alpha = 0.849
-# > kripp.alpha(nmm, "ratio")
-#  Krippendorff's alpha
-#
-#  Subjects = 12
-#    Raters = 4
-#     alpha = 0.797
-
-# import pandas as pd
-# nmm = pd.read_csv("pyrr/tests/nmm.csv", index_col=0)
-# kripp_alpha(nmm, "ratio")

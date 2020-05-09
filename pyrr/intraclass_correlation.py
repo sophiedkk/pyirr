@@ -168,21 +168,3 @@ def intraclass_correlation(ratings, model="oneway", mtype="consistency", unit="s
                 ubound = (ns * (FU * MSr - MSe)) / (MSc - MSe + ns * FU * MSr)
 
     return ICC_result(ns, nr, model, mtype, name, coeff, r0, Fvalue, df1, df2, pvalue, conf_level, lbound, ubound)
-
-
-# icc(anxiety, model="twoway", type="agreement")  # TODO: test cases, this one is correct
-#  Single Score Intraclass Correlation
-#
-#    Model: twoway
-#    Type : agreement
-#
-#    Subjects = 20
-#      Raters = 3
-#    ICC(A,1) = 0.198
-#
-#  F-Test, H0: r0 = 0 ; H1: r0 > 0
-#  F(19,39.7) = 1.83 , p = 0.0543
-#
-#  95%-Confidence Interval for ICC Population Values:
-#   -0.039 < ICC < 0.494
-

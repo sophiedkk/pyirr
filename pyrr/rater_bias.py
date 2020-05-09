@@ -31,14 +31,3 @@ def rater_bias(ratings):
     pvalue = 1 - chi2.cdf(rbstat, 1)
 
     return IRR_result("Rater bias coefficient", ns, nr, "Ratio", rb, rbstat, f"Chisq(1)", pvalue)
-
-
-# > rater.bias(vision)  # TODO: write tests, this one works
-#  Rater bias coefficient
-#
-#  Subjects = 7477
-#    Raters = 2
-#     Ratio = 0.537
-#
-#  Chisq(1) = 11.9
-#   p-value = 0.000566

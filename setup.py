@@ -11,11 +11,11 @@ setup(
 	url              		= 'https://gitlab.com/Rickdkk/pyrr',
 	download_url     		= 'https://gitlab.com/Rickdkk/pyrr',
 	packages         		= ['pyrr'],
-	package_data     		= {},
+	package_data     		= {'tests/*.csv', 'tests/*.p'},
 	include_package_data 	= True,
 	long_description 		= '..',
 	license 				= 'GNU GPLv3',
 	keywords         		= ['statistics'],
 	classifiers      		= [],
-	install_requires 		= ["numpy", "scipy", "pandas"]
+	install_requires 		= ["numpy", "scipy", "pandas", "statsmodels"]
 )

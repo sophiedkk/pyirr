@@ -70,20 +70,3 @@ def meanrho(ratings, fisher=True):
         result["error"] = "Coefficient may be incorrect due to ties"
 
     return IRR_result(**result)
-
-
-# > meanrho(anxiety, TRUE)  #TODO: write tests, this one is correct
-#  Mean of bivariate rank correlations Rho
-#
-#  Subjects = 20
-#    Raters = 3
-#       Rho = 0.314
-#
-#         z = 1.29
-#   p-value = 0.196
-#
-#  Coefficient may be incorrect due to ties
-
-# import pandas as pd
-# anxiety = pd.read_csv("pyrr/tests/anxiety.csv", index_col=0)
-# meanrho(anxiety)

@@ -53,25 +53,3 @@ def kendall(ratings, correct=False):
 
     method = "Kendall's coefficient of concordance"
     return IRR_result(method, ns, nr, "Wt", coeff, Xvalue, f"Chisq ({df1})", pvalue, error=error)
-
-# > kendall(anxiety)  #TODO: write tests, these are correct
-#  Kendall's coefficient of concordance W
-#
-#  Subjects = 20
-#    Raters = 3
-#         W = 0.502
-#
-# Chisq(19) = 28.6
-#   p-value = 0.0724
-#
-#  Coefficient may be incorrect due to ties
-
-# > kendall(anxiety, TRUE)
-#  Kendall's coefficient of concordance Wt
-#
-#  Subjects = 20
-#    Raters = 3
-#        Wt = 0.54
-#
-# Chisq(19) = 30.8
-#   p-value = 0.0429

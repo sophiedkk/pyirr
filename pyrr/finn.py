@@ -1,29 +1,7 @@
-from dataclasses import dataclass, asdict
-
 import numpy as np
 from scipy.stats import f
 
-
-@dataclass
-class finn_result:
-    subjects: int
-    raters: int
-    df2: int
-    model: str
-    value: float
-    statistic: float
-    p_value: float
-
-    def to_dict(self):
-        return asdict(self)
-
-    def __repr__(self):
-        model_string = "=" * 50 + "\n" + f"Finn-Coefficient (Model={self.model})".center(50, " ")
-        model_string += "\n" + "=" * 50 + "\n"
-        model_string += f"Subjects = {self.subjects}\nRaters = {self.raters}\nFinn = {self.value:.3f}\n\n"
-        model_string += f"F(Inf, {self.df2}): {self.statistic:.1f}\np_value: {self.p_value:.3f}\n"
-        model_string += "=" * 50
-        return model_string
+from .IRR_result import IRR_result
 
 
 def finn(ratings, s_levels, model):
@@ -61,21 +39,10 @@ def finn(ratings, s_levels, model):
     if model == "oneway":
         coeff = 1 - (MSw / MSexp)
         Fvalue = MSexp / MSw
-        p_value = 1 - f.cdf(Fvalue, df1, df2)
+        pvalue = 1 - f.cdf(Fvalue, df1, df2)
     elif model == "twoway":
         coeff = 1 - (MSe / MSexp)
         Fvalue = MSexp / MSe
-        p_value = 1 - f.cdf(Fvalue, df1, df2)
+        pvalue = 1 - f.cdf(Fvalue, df1, df2)
 
-    return finn_result(ns, nr, df2, model, coeff, Fvalue, p_value)
-
-
-# agree(video)  # TODO: test cases, this one is correct
-# Finn-Coefficient (Model=twoway)
-#
-#  Subjects = 20
-#    Raters = 4
-#      Finn = 0.925
-#
-# F(Inf,60) = 13.3
-#   p-value = 1.74e-23
+    return IRR_result(f"Finn-Coefficient (Model={model})", ns, nr, "Finn", coeff, Fvalue, f"F(Inf,{df2})", pvalue)

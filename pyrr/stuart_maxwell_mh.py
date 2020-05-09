@@ -2,7 +2,7 @@ import numpy as np
 import pandas as pd
 from scipy.stats import chi2
 
-from IRR_result import IRR_result
+from .IRR_result import IRR_result
 
 
 def stuart_maxwell_mh(ratings):
@@ -48,13 +48,3 @@ def stuart_maxwell_mh(ratings):
     return IRR_result("Stuart-Maxwell marginal homogeneity", int(np.sum(smx)), 2, "Chisq", smstat, smstat,
                       f"Chisq({k_minus1})", p)
 
-
-# > stuart.maxwell.mh(vision)  #TODO: write tests, this one is correct
-#  Stuart-Maxwell marginal homogeneity
-#
-#  Subjects = 7477
-#    Raters = 2
-#     Chisq = 12
-#
-#  Chisq(3) = 12
-#   p-value = 0.00753

@@ -129,16 +129,3 @@ def N2_cohen_kappa(mrg, k1, k0, alpha=0.05, power=0.8, twosided=False):
     n = np.ceil(raw_n)
 
     return int(n)
-
-
-# > N2.cohen.kappa(c(0.2, 0.25, 0.55), k1=0.6, k0=0.4)  #TODO: write tests, this one works
-# [1] 101
-# > N2.cohen.kappa(c(0.2, 0.25, 0.55), k1=0.6, k0=0.4, power=0.9)
-# [1] 136
-# > N2.cohen.kappa(c(0.2, 0.05, 0.2, 0.05, 0.2, 0.3), k1=0.5, k0=0.1)
-# [1] 18
-
-# print(N2_cohen_kappa([0.2, 0.25, 0.55], 0.6, 0.4))
-# print(N2_cohen_kappa([0.2, 0.25, 0.55], 0.6, 0.4, power=0.9))
-# print(N2_cohen_kappa([0.2, 0.05, 0.2, 0.05, 0.2, 0.3], k1=0.5, k0=0.1))
-

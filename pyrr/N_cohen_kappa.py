@@ -55,12 +55,3 @@ def N_cohen_kappa(rate1, rate2, k1, k0, alpha=0.05, power=0.8, twosided=False):
     N = ((norm.ppf(1 - alpha / d) * Q_h**0.5 + norm.ppf(power) * Q**0.5) / (k1 - k0))**2
 
     return ceil(N)
-
-
-
-# > # Testing H0: kappa = 0.7 vs. HA: kappa > 0.7 given that  # TODO: write test, this one is correct
-# > # kappa = 0.85 and both raters classify 50% of subjects as positive.
-# > N.cohen.kappa(0.5, 0.5, 0.7, 0.85)
-# [1] 96
-
-# N_cohen_kappa(0.5, 0.5, 0.7, 0.85)

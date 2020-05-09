@@ -1,29 +1,8 @@
-from dataclasses import dataclass, asdict
-
 import numpy as np
 import pandas as pd
 from scipy.stats import chi2
 
 from .IRR_result import IRR_result
-
-
-@dataclass
-class bhapkar_result:
-    subjects: int
-    raters: int
-    value: float
-    pvalue: float
-
-    def to_dict(self):
-        return asdict(self)
-
-    def __repr__(self):
-        model_string = "=" * 50 + "\n" + f"Bhapkar marginal homogeneity".center(50, " ")
-        model_string += "\n" + "=" * 50 + "\n"
-        model_string += f"Subjects = {self.subjects}\nRaters = {self.raters}\nChisq = {self.value:.0f}\n"
-        model_string += f"p-value = {self.pvalue:.5f}\n"
-        model_string += "=" * 50
-        return model_string
 
 
 def bhapkar(ratings):
@@ -85,14 +64,3 @@ def bhapkar(ratings):
     method = "Bhapkar marginal homogeneity"
     stat_name = f"Chisq({df1})"
     return IRR_result(method, ns, nr, "Chisq", x_value, x_value, stat_name, pvalue)
-
-# bhapkar(vision)  # TODO: add tests, this one is correct
-#  Bhapkar marginal homogeneity
-#
-#  Subjects = 7477
-#    Raters = 2
-#     Chisq = 12
-#
-#  Chisq(3) = 12
-#   p-value = 0.00747
-
