@@ -90,7 +90,7 @@ def N2_cohen_kappa(mrg, k1, k0, alpha=0.05, power=0.8, twosided=False):
     k0: float
         the value of Kappa under the null hypothesis
     alpha: float
-        type I error of tests
+        type I error of data
     power: float
         the desired power to detect the difference between true Kappa and hypothetical Kappa
     twosided: bool

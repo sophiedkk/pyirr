@@ -11,7 +11,7 @@ setup(
 	url              		= 'https://gitlab.com/Rickdkk/pyrr',
 	download_url     		= 'https://gitlab.com/Rickdkk/pyrr',
 	packages         		= ['pyrr'],
-	package_data     		= {'tests/*.csv', 'tests/*.p'},
+	package_data     		= {"pyrr": ['pyrr/data/*']},
 	include_package_data 	= True,
 	long_description 		= '..',
 	license 				= 'GNU GPLv3',

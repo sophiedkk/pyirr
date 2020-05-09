@@ -1,5 +1,6 @@
-import os
 import pandas as pd
+
+from pkg_resources import resource_filename
 
 
 def read_data(name):
@@ -13,6 +14,6 @@ def read_data(name):
     """
 
     if name == "photo":
-        return pd.read_pickle(os.path.join(os.path.dirname(__file__), "tests", "photo.p"))
+        return pd.read_pickle(resource_filename("pyrr", "data/photo.p"))
     else:
-        return pd.read_csv(os.path.join(os.path.dirname(__file__), "tests", f"{name}.csv"), index_col=0)
+        return pd.read_csv(resource_filename("pyrr", f"data/{name}.csv"), index_col=0)
