@@ -8,15 +8,15 @@ How to install
 --------------
 Just run::
 
-    pip install pyrr
+    pip install pyirr
 
 Example
 -------
 A simple example::
 
-    from pyrr import read_data, intraclass_correlation
+    from pyirr import read_data, intraclass_correlation
 
-    data = read_data("anxiety")
+    data = read_data("anxiety")  # loads example data
     intraclass_correlation(data, "twoway", "agreement")
 
 Returns::
@@ -36,4 +36,31 @@ Returns::
 
     95%-Confidence Interval for ICC Population Values:
     -0.039 < ICC < 0.494
+    ==================================================
+
+Another simple example::
+
+    from pyirr import read_data, kappam_fleiss
+
+    data = read_data("anxiety")  # loads example data
+    kappam_fleiss(data, detail=True)
+
+Returns::
+
+    ==================================================
+                Fleiss` Kappa for m Raters
+    ==================================================
+    Subjects = 30
+      Raters = 6
+       Kappa = 0.430
+
+           z = 17.652
+     p-value = 0.000
+
+                             Kappa       z  p.value
+    1. Depression            0.245   5.192      0.0
+    2. Personality Disorder  0.245   5.192      0.0
+    3. Schizophrenia         0.520  11.031      0.0
+    4. Neurosis              0.471   9.994      0.0
+    5. Other                 0.566  12.009      0.0
     ==================================================

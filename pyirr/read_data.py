@@ -14,6 +14,6 @@ def read_data(name):
     """
 
     if name == "photo":
-        return pd.read_pickle(resource_filename("pyrr", "data/photo.p"))
+        return pd.read_pickle(resource_filename("pyirr", "data/photo.p"))
     else:
-        return pd.read_csv(resource_filename("pyrr", f"data/{name}.csv"), index_col=0)
+        return pd.read_csv(resource_filename("pyirr", f"data/{name}.csv"), index_col=0)

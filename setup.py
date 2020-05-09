@@ -1,19 +1,23 @@
-
+import os
 from setuptools import setup
 
 
+def read(fname):
+    return open(os.path.join(os.path.dirname(__file__), fname)).read()
+
+
 setup(
-	name             		= 'pyrr',
-	version          		= '0.84.1',
+	name             		= 'pyirr',
+	version          		= '0.84.1.1',
 	description      		= 'Python implementation of the R package IRR',
 	author           		= 'Rick de Klerk',
 	author_email     		= 'r.de.klerk@umcg.nl',
 	url              		= 'https://gitlab.com/Rickdkk/pyrr',
 	download_url     		= 'https://gitlab.com/Rickdkk/pyrr',
-	packages         		= ['pyrr'],
-	package_data     		= {"pyrr": ['pyrr/data/*']},
+	packages         		= ['pyirr'],
+	package_data     		= {"pyirr": ['pyirr/data/*']},
 	include_package_data 	= True,
-	long_description 		= '..',
+	long_description 		= read("README.rst"),
 	license 				= 'GNU GPLv3',
 	keywords         		= ['statistics'],
 	classifiers      		= [],
