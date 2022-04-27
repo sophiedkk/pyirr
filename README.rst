@@ -1,6 +1,8 @@
 Coefficients of Interrater Reliability and Agreement
 ====================================================
+
 .. image:: https://github.com/rickdkk/pyirr/actions/workflows/python-app.yml/badge.svg
+    :target: https://github.com/rickdkk/pyirr/actions
 
 .. image:: https://zenodo.org/badge/484431981.svg
    :target: https://zenodo.org/badge/latestdoi/484431981
