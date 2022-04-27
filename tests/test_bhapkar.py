@@ -4,6 +4,7 @@ from pyirr import bhapkar
 
 
 def test_bhapkar(vision):
+    # Original example used from Bhapkar (1966)
     bhapkar_result = bhapkar(vision)
 
     assert bhapkar_result.subjects == 7477
