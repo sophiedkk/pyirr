@@ -1,8 +1,12 @@
 Coefficients of Interrater Reliability and Agreement
 ====================================================
 .. image:: https://github.com/rickdkk/pyirr/actions/workflows/python-app.yml/badge.svg
+
 .. image:: https://zenodo.org/badge/484431981.svg
    :target: https://zenodo.org/badge/latestdoi/484431981
+
+.. image:: https://img.shields.io/badge/License-GPLv3-blue.svg
+    :target: https://github.com/rickdkk/pyirr/blob/main/LICENSE
 
 Python implementation of the R package `IRR <https://CRAN.R-project.org/package=irr>`_, all credit goes to the original
 authors [1]_. The package contains functions to calculate coefficients of Interrater Reliability and Agreement for interval,
