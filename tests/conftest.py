@@ -27,3 +27,7 @@ def diagnoses():
 def photo():
     return read_data("photo")
 
+
+@pytest.fixture
+def gonio():
+    return read_data("gonio")
