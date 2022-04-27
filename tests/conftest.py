@@ -16,3 +16,14 @@ def vision():
 @pytest.fixture
 def anxiety():
     return read_data("anxiety")
+
+
+@pytest.fixture
+def diagnoses():
+    return read_data("diagnoses")
+
+
+@pytest.fixture
+def photo():
+    return read_data("photo")
+

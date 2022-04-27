@@ -13,7 +13,7 @@ def kappa2(ratings, weight, sort_levels=False):
     ----------
     ratings: array_like
         subjects * raters array or dataframe
-    weight: {"unweighted", "equal", "squared"}
+    weight: {"unweighted", "equal", "squared"} or array_like
         either a character string specifying one predefined set of weights or a numeric vector with own weights.
     sort_levels: bool
 

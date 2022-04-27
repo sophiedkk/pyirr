@@ -1,10 +1,12 @@
+from copy import deepcopy
+
 import numpy as np
 import pandas as pd
 
 from .IRR_result import IRR_result
 
 
-def iota(ratings, scale_data, standardize=False):
+def iota(ratings, scale_data="quantitative", standardize=False):
     """Computes iota as an index of interrater agreement of quantitative or nominal multivariate observations.
 
     Parameters
@@ -17,7 +19,12 @@ def iota(ratings, scale_data, standardize=False):
        a logical indicating whether quantitative data should be z-standardized within each variable before the
        computation of iota.
 
+    Returns
+    -------
+    IRR_result
+        Returns iota as an IRR_result dataclass.
     """
+    ratings = deepcopy(ratings)
     detail = None
     for i, rating in enumerate(ratings):
         rating = pd.DataFrame(rating)
@@ -48,7 +55,7 @@ def iota(ratings, scale_data, standardize=False):
                 ratinglist[dummyn][ratings[i] == level] = 1 / np.sqrt(2)
                 dummyn += 1
     else:
-        raise Exception("Please choose quantitative or nominal.")
+        raise ValueError("Please choose quantitative or nominal.")
 
     # Compute coefficient
     doSS, deSS = 0, 0
