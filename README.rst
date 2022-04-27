@@ -5,9 +5,9 @@ Coefficients of Interrater Reliability and Agreement
 Python implementation of the R package `IRR <https://CRAN.R-project.org/package=irr>`_, all credit goes to the original
 authors [1]_. The package contains functions to calculate coefficients of Interrater Reliability and Agreement for interval,
 ordinal and nominal data: intraclass-correlations, Finn-Coefficient, Robinson's A, Kendall's W, Cohen's Kappa, and others.
-This is a straight port from the R-package, so it is not particularly Pythonic and mainly made as an exercise to learn
-more about R. For documentation I highly recommend you head over to the R package page, they put in a lot of effort for the
-documentation!
+This is a straight line-for-line port from the R-package, so it is not particularly Pythonic and mainly made as an
+exercise to learn more about R. For documentation I highly recommend you head over to the R package page, they put in a
+lot of effort for the documentation!
 
 
 How to install
