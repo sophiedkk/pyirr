@@ -47,11 +47,16 @@ def intraclass_correlation(ratings, model="oneway", mtype="consistency", unit="s
     mtype: {"consistency", "agreement"}
         whether you want to test for "consistency" or "agreement"
     unit: {"single", "average"}
-        something
+        unit of the analysis
     r0: int
-        something
+        specification of the null hypothesis
     conf_level: float
         confidence level
+
+    Returns
+    -------
+    ICC_result
+        The intraclass correlation statistics in an ICC_result dataclass.
 
     """
     ratings = np.array(ratings)  # make sure ratings is not a list or DataFrame

@@ -13,11 +13,19 @@ def finn(ratings, s_levels, model):
         subjects * raters array or dataframe
     s_levels: float
         the number of different rating categories
-    model: bool
+    model: {"oneway", "twoway"}
         a character string specifying if a '"oneway"' model (default) with row effects random, or a '"twoway"' model
         with column and row effects random should be applied.
 
+    Returns
+    -------
+    IRR_result
+        Finn coefficient in an IRR_result dataclass
+
     """
+    if model not in ("oneway", "twoway"):
+        raise ValueError("Model should be either 'oneway' or 'twoway'.")
+
     ratings = np.array(ratings)  # make sure ratings is not a list or DataFrame
 
     ratings = ratings[~np.isnan(ratings).any(axis=1)]  # drop nans

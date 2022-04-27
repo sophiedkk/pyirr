@@ -13,6 +13,11 @@ def bhapkar(ratings):
     ratings: array_like
         subjects * raters array or dataframe
 
+    Returns
+    -------
+    IRR_result
+        Bhapkar statistics in an IRR_result dataclass
+
     """
     ratings = pd.DataFrame(ratings)  # make sure ratings is a DataFrame
 
@@ -22,7 +27,7 @@ def bhapkar(ratings):
     nr = ratings.shape[1]
 
     if nr > 2:
-        raise Exception("Number of raters exceeds 2. Try kappam_fleiss or kappam_light")
+        raise ValueError("Number of raters exceeds 2. Try kappam_fleiss or kappam_light")
 
     r1, r2 = ratings.iloc[:, 0], ratings.iloc[:, 1]
 
