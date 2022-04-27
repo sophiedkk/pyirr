@@ -1,8 +1,11 @@
 Coefficients of Interrater Reliability and Agreement
 ====================================================
+.. image:: https://github.com/rickdkk/pyirr/actions/workflows/python-app.yml/badge.svg
+    :alt: Pytest status
 
-Python implementation of the R package `IRR <https://CRAN.R-project.org/package=irr>`_.
-For documentation please head over to the R package page, they put in a lot of effort for the documentation!
+Python implementation of the R package `IRR <https://CRAN.R-project.org/package=irr>`_. This is a straight port from the
+R-package, so it is not particularly Pythonic. For documentation I highly recommend you head over to the R package page,
+they put in a lot of effort for the documentation!
 
 How to install
 --------------
