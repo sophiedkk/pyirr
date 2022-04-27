@@ -13,6 +13,11 @@ def stuart_maxwell_mh(ratings):
     ratings: array_like
         subjects * raters array or dataframe
 
+    Returns
+    -------
+    IRR_result
+        Stuart-Maxwell coefficient in an IRR_result dataclass.
+
     """
     ratings = pd.DataFrame(ratings)
 

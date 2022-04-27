@@ -15,8 +15,12 @@ def meanrho(ratings, fisher=True):
     fisher: bool
         a boolean indicating whether the correlation coefficients should be Fisher z-standardized before averaging.
 
+    Returns
+    -------
+    IRR_result
+        Returns correlation as an IRR_result dataclass.
     """
-    ratings = np.asarray(ratings)  # make sure ratings is not a list or DataFrame
+    ratings = np.array(ratings)  # make sure ratings is not a list or DataFrame
 
     ratings = ratings[~np.isnan(ratings).any(axis=1)]  # drop nans  # drop nans
 

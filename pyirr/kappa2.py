@@ -17,6 +17,10 @@ def kappa2(ratings, weight, sort_levels=False):
         either a character string specifying one predefined set of weights or a numeric vector with own weights.
     sort_levels: bool
 
+    Returns
+    -------
+    IRR_result
+        Returns Cohen's Kappa as an IRR_result dataclass.
     """
     ratings = pd.DataFrame(ratings)  # make sure ratings is a DataFrame
 

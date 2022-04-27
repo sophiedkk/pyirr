@@ -15,6 +15,11 @@ def meancor(ratings, fisher=True):
     fisher: bool
         a boolean indicating whether the correlation coefficients should be Fisher z-standardized before averaging.
 
+    Returns
+    -------
+    IRR_result
+        Returns correlation as an IRR_result dataclass.
+
     """
     ratings = np.array(ratings)  # make sure ratings is not a list or DataFrame
 

@@ -11,6 +11,11 @@ def maxwell(ratings):
     ratings: array_like
         subjects * raters array or dataframe
 
+    Returns
+    -------
+    IRR_result
+        Returns Maxwell's RE as an IRR_result dataclass.
+
     """
     ratings = np.array(ratings)  # make sure ratings is not a list or DataFrame
 

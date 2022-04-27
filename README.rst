@@ -1,20 +1,23 @@
 Coefficients of Interrater Reliability and Agreement
 ====================================================
 .. image:: https://github.com/rickdkk/pyirr/actions/workflows/python-app.yml/badge.svg
-    :alt: Pytest status
 
-Python implementation of the R package `IRR <https://CRAN.R-project.org/package=irr>`_. This is a straight port from the
-R-package, so it is not particularly Pythonic. For documentation I highly recommend you head over to the R package page,
-they put in a lot of effort for the documentation!
+Python implementation of the R package `IRR <https://CRAN.R-project.org/package=irr>`_, all credit goes to the original
+authors [1]_. The package contains functions to calculate coefficients of Interrater Reliability and Agreement for interval,
+ordinal and nominal data: intraclass-correlations, Finn-Coefficient, Robinson's A, Kendall's W, Cohen's Kappa, and others.
+This is a straight port from the R-package, so it is not particularly Pythonic and mainly made as an exercise to learn
+more about R. For documentation I highly recommend you head over to the R package page, they put in a lot of effort for the
+documentation!
+
 
 How to install
 --------------
-Just run::
+The package is available on the Python Package Index (PyPI). To install it you can run::
 
     pip install pyirr
 
-Example
--------
+How to use
+----------
 A simple example::
 
     from pyirr import read_data, intraclass_correlation
@@ -67,3 +70,5 @@ Returns::
     4. Neurosis              0.471   9.994      0.0
     5. Other                 0.566  12.009      0.0
     ==================================================
+
+.. [1] Gamer, M., Lemon, J., Gamer, M.M., Robinson, A. and Kendall’s, W., 2012. Package ‘irr’. Various coefficients of interrater reliability and agreement, 22.

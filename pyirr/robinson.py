@@ -11,6 +11,11 @@ def robinson(ratings):
     ratings: array_like
         subjects * raters array or dataframe
 
+    Returns
+    -------
+    IRR_result
+        Returns Robinson's A as an IRR_result dataclass.
+
     """
     ratings = np.asarray(ratings)  # make sure ratings is not a list or DataFrame
 

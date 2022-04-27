@@ -13,6 +13,10 @@ def rater_bias(ratings):
     ratings: array_like
         n x 2 matrix of classification scores into c categories.
 
+    Returns
+    -------
+    IRR_result
+        Bias as an IRR_result dataclass.
     """
     ratings = pd.DataFrame(ratings)
 

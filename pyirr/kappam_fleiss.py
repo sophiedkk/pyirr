@@ -19,6 +19,11 @@ def kappam_fleiss(ratings, exact=False, detail=False):
     detail: bool
         a boolean indicating whether category-wise Kappas should be computed
 
+    Returns
+    -------
+    IRR_result
+        Returns Fleiss' Kappa as an IRR_result dataclass.
+
    """
     ratings = pd.DataFrame(ratings)
     ns = ratings.shape[0]

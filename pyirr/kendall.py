@@ -16,6 +16,11 @@ def kendall(ratings, correct=False):
     correct: bool
         a logical indicating whether the coefficient should be corrected for ties within raters.
 
+    Returns
+    -------
+    IRR_result
+        Returns Kendall's coefficient of concordance as an IRR_result dataclass.
+
    """
     ratings = pd.DataFrame(ratings)
     ns = ratings.shape[0]

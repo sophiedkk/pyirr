@@ -15,6 +15,11 @@ def kappam_light(ratings):
     ratings: array_like
         subjects * raters array or dataframe
 
+    Returns
+    -------
+    IRR_result
+        Returns Light's Kappa as an IRR_result dataclass.
+
    """
     ratings = pd.DataFrame(ratings)
     ns = ratings.shape[0]

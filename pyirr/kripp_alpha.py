@@ -29,7 +29,7 @@ def coincidence_matrix(array):
     return cm, nmv, levx
 
 
-def kripp_alpha(ratings, method=None):
+def kripp_alpha(ratings, method="nominal"):
     """Calculates the alpha coefficient of reliability proposed by Krippendorff
 
     Parameters
@@ -39,8 +39,13 @@ def kripp_alpha(ratings, method=None):
     method: {"nominal", "ordinal", "interval", "ratio"}
         data level of x
 
+    Returns
+    -------
+    IRR_result
+        Returns Krippendorff's coefficient as an IRR_result dataclass.
+
    """
-    ratings = np.asarray(ratings).T
+    ratings = np.array(ratings).T
     cm, nmv, levx = coincidence_matrix(ratings)
     dimcm = cm.shape
 
