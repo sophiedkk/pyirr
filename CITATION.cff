@@ -1,0 +1,9 @@
+cff-version: 1.1.0
+message: "If you use this software, please be sure to cite the original R source. I would also appreciate it if you cite this repo."
+authors:
+  - family-names: de Klerk
+    given-names: Rick
+    orcid: https://orcid.org/0000-0003-2745-1963
+title: rickdkk/pyirr: v0.84.1.2
+version: v0.84.1.2
+date-released: 2022-04-27
