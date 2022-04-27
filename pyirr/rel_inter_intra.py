@@ -9,7 +9,7 @@ from statsmodels.formula.api import ols
 from .IRR_result import IRR_result
 
 
-def rel_inter_intra(ratings, nraters, rho_inter=0., rho_intra=0.8, conf_level=0.95):
+def rel_inter_intra(ratings, nraters, rho_inter=0.6, rho_intra=0.8, conf_level=0.95):
     """Calculates inter- and intra-rater reliability coefficients.
 
     Parameters
@@ -29,7 +29,7 @@ def rel_inter_intra(ratings, nraters, rho_inter=0., rho_intra=0.8, conf_level=0.
     ratings = pd.DataFrame(ratings)
 
     ns = ratings.shape[0]
-    nmeas = ratings.shape[1] / nraters
+    nmeas = ratings.shape[1] // nraters
 
     data = np.vstack([np.tile(np.arange(1, ns + 1), int(nraters * nmeas)),
                       np.repeat(np.arange(1, nraters + 1), ns * nmeas),
@@ -68,6 +68,7 @@ def rel_inter_intra(ratings, nraters, rho_inter=0., rho_intra=0.8, conf_level=0.
     # the same for random and fixed, see table 2 (p. 780) and 3 (p. 281)
     sighat2e = MSE
     sighat2Sfixed = (MSS - MSE) / (mm * tt)
+    # sighat2Rfixed = (MSR - MSSR) / (mm * nn)  # not used
     sighat2SRfixed = (MSSR - MSE) / mm
 
     # the same for random and fixed, see table 2 (p. 780) and 3 (p. 281)
